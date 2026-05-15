@@ -1,13 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">\
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
-    <title>Kingdom Clocks</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kingdom Clocks</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+
+  <!-- Top nav buttons -->
+  <div class="top-nav">
+    <button class="nav-btn" id="share-btn" title="Share">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+      </svg>
+    </button>
+    <button class="nav-btn" id="translate-btn" title="Translate">
+      <span class="translate-icon">文A</span>
+    </button>
+    <button class="nav-btn" id="menu-btn" title="Menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Menu drawer -->
+  <div class="menu-overlay" id="menu-overlay"></div>
+  <nav class="menu-drawer" id="menu-drawer">
+    <div class="menu-header">
+      <span>Menu</span>
+      <button class="menu-close" id="menu-close">✕</button>
+    </div>
+    <ul>
+      <li><a href="#">About Kingdom Clocks</a></li>
+      <li><a href="#">Our Mission</a></li>
+      <li><a href="#">Data Sources</a></li>
+      <li><a href="#">Get Involved</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Header -->
+  <header class="site-header">
+    <h1>Kingdom Clocks</h1>
+    <div class="crown-icon">&#x1F451;</div>
+    <p>Tracking measurable progress toward<br>building the kingdom of heaven here on earth</p>
+  </header>
+
+  <!-- Progress section -->
+  <section class="card-section" id="progress-section">
+    <h2 class="section-title progress-title">
+      <span>&#x1F331;</span> Progress
+    </h2>
+    <div class="clocks-grid" id="progress-grid"></div>
+  </section>
+
+  <!-- Needs Work section -->
+  <section class="card-section" id="needs-work-section">
+    <h2 class="section-title needs-work-title">
+      <span>&#x26A0;&#xFE0F;</span> Needs Work
+    </h2>
+    <div class="clocks-grid" id="needs-work-grid"></div>
+  </section>
+
+  <!-- Footer CTA -->
+  <div class="join-section">
+    <button class="join-btn" id="join-btn">Join the effort</button>
+    <p class="footer-note">
+      <span class="info-icon">&#x24D8;</span>
+      Percentages reflect estimated global progress toward kingdom-building goals.
+    </p>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
