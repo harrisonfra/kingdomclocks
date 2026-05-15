@@ -5,7 +5,7 @@ body {
   font-family: 'Georgia', serif;
   min-height: 100vh;
   background-color: #f5c45a;          /* warm amber fallback */
-  background-image: url('bg.png');
+  background-image: url('bg.jpg');
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
