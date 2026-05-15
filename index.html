@@ -8,73 +8,103 @@
 </head>
 <body>
 
-  <!-- Top nav buttons -->
-  <div class="top-nav">
-    <button class="nav-btn" id="share-btn" title="Share">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
-        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
-      </svg>
-    </button>
-    <button class="nav-btn" id="translate-btn" title="Translate">
-      <span class="translate-icon">文A</span>
-    </button>
-    <button class="nav-btn" id="menu-btn" title="Menu">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
-        <line x1="3" y1="6" x2="21" y2="6"/>
-        <line x1="3" y1="12" x2="21" y2="12"/>
-        <line x1="3" y1="18" x2="21" y2="18"/>
-      </svg>
-    </button>
-  </div>
+  <!-- Floating desktop CTA -->
+  <button class="desktop-cta-btn" id="desktop-join-btn">Join The Cause</button>
 
-  <!-- Menu drawer -->
-  <div class="menu-overlay" id="menu-overlay"></div>
-  <nav class="menu-drawer" id="menu-drawer">
-    <div class="menu-header">
-      <span>Menu</span>
-      <button class="menu-close" id="menu-close">✕</button>
+  <div class="page-wrap">
+    <div class="content-panel">
+
+      <!-- Card 1: Header -->
+      <div class="card header-card">
+        <h1>Kingdom Clocks</h1>
+        <div class="crown-divider">
+          <span class="divider-line"></span>
+          <span class="crown-icon">&#x1F451;</span>
+          <span class="divider-line"></span>
+        </div>
+        <p class="header-subtitle">What time is it in God's Kingdom?<br>See the clocks, then help move them.</p>
+      </div>
+
+      <!-- Card 2: Share -->
+      <div class="card share-card">
+        <div class="share-count" id="share-count">1582 Shares</div>
+        <button class="share-action-btn" id="share-action-btn">Share Kingdom Clocks</button>
+        <p class="share-subtitle">Help us reach our goal of 10,000 shares</p>
+      </div>
+
+      <!-- Card 3: Clocks + Join blurb -->
+      <div class="card clocks-card">
+
+        <section class="clocks-section">
+          <h2 class="section-title progress-title">
+            <span class="section-icon">&#x1F331;</span> Progress
+          </h2>
+          <div class="clocks-grid" id="progress-grid"></div>
+        </section>
+
+        <section class="clocks-section needs-work-section">
+          <h2 class="section-title needs-work-title">
+            <span class="section-icon">&#x26A0;&#xFE0F;</span> Needs Work
+          </h2>
+          <div class="clocks-grid needs-work-grid" id="needs-work-grid"></div>
+        </section>
+
+        <div class="join-blurb">
+          <p>Join Kingdom Clocks today for free to receive inspirational updates on where Christians have driven god's kingdom ahead and hear about opportunities to help move the lowest clocks up.</p>
+          <button class="join-cause-btn" id="join-btn">Join The Cause</button>
+        </div>
+
+      </div>
+    </div><!-- end content-panel -->
+  </div><!-- end page-wrap -->
+
+
+  <!-- ── Clock Detail Modal ────────────────────────── -->
+  <div class="modal-overlay" id="clock-modal-overlay" aria-hidden="true">
+    <div class="modal-card clock-modal-card" id="clock-modal-card" role="dialog">
+      <button class="modal-close-btn" id="clock-modal-close" aria-label="Close">&#x2715;</button>
+      <div class="modal-dial-wrap" id="modal-dial-wrap"></div>
+      <h2 class="modal-clock-title" id="modal-clock-title"></h2>
+      <div class="modal-divider">
+        <span class="divider-line"></span>
+        <span class="modal-clock-icon" id="modal-clock-icon"></span>
+        <span class="divider-line"></span>
+      </div>
+      <p class="modal-description" id="modal-description"></p>
+      <a class="modal-source-link" id="modal-source-link" href="#" target="_blank" rel="noopener">
+        Check out the source here
+      </a>
     </div>
-    <ul>
-      <li><a href="#">About Kingdom Clocks</a></li>
-      <li><a href="#">Our Mission</a></li>
-      <li><a href="#">Data Sources</a></li>
-      <li><a href="#">Get Involved</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul>
-  </nav>
-
-  <!-- Header -->
-  <header class="site-header">
-    <h1>Kingdom Clocks</h1>
-    <div class="crown-icon">&#x1F451;</div>
-    <p>Tracking measurable progress toward<br>building the kingdom of heaven here on earth</p>
-  </header>
-
-  <!-- Progress section -->
-  <section class="card-section" id="progress-section">
-    <h2 class="section-title progress-title">
-      <span>&#x1F331;</span> Progress
-    </h2>
-    <div class="clocks-grid" id="progress-grid"></div>
-  </section>
-
-  <!-- Needs Work section -->
-  <section class="card-section" id="needs-work-section">
-    <h2 class="section-title needs-work-title">
-      <span>&#x26A0;&#xFE0F;</span> Needs Work
-    </h2>
-    <div class="clocks-grid" id="needs-work-grid"></div>
-  </section>
-
-  <!-- Footer CTA -->
-  <div class="join-section">
-    <button class="join-btn" id="join-btn">Join the effort</button>
-    <p class="footer-note">
-      <span class="info-icon">&#x24D8;</span>
-      Percentages reflect estimated global progress toward kingdom-building goals.
-    </p>
+    <div class="modal-source-caption">
+      <p>Source</p>
+      <p id="modal-source-url-text"></p>
+    </div>
   </div>
+
+
+  <!-- ── Join The Cause Modal ──────────────────────── -->
+  <div class="modal-overlay" id="join-modal-overlay" aria-hidden="true">
+    <div class="modal-card join-modal-card" id="join-modal-card" role="dialog">
+      <h2 class="join-modal-title">Join The Cause</h2>
+
+      <div class="join-form">
+        <input class="form-input" type="text" placeholder="Full Name here" autocomplete="name">
+        <input class="form-input" type="email" placeholder="email@here.com" autocomplete="email">
+        <label class="checkbox-row">
+          <input class="form-checkbox" type="checkbox">
+          <span>I agree to receive email updates on Kingdom Clocks</span>
+        </label>
+      </div>
+
+      <hr class="form-rule">
+
+      <p class="interest-label">Which clocks are you interested in supporting?</p>
+      <div class="interest-grid" id="interest-grid"></div>
+
+      <button class="join-submit-btn">Join Kingdom Clocks</button>
+    </div>
+  </div>
+
 
   <script src="script.js"></script>
 </body>
