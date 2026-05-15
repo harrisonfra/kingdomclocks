@@ -1,0 +1,525 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Page & background ───────────────────────────────────────────────── */
+body {
+  font-family: 'Georgia', serif;
+  min-height: 100vh;
+  background-color: #f5c45a;          /* warm amber fallback */
+  background-image: url('bg.png');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* ── Layout ──────────────────────────────────────────────────────────── */
+.page-wrap {
+  display: flex;
+  justify-content: flex-start;
+  min-height: 100vh;
+}
+
+.content-panel {
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+  padding: 24px 14px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Desktop: pin content to left, let bg show on right */
+@media (min-width: 768px) {
+  .page-wrap { justify-content: flex-start; }
+  .content-panel {
+    margin: 0;
+    max-width: 460px;
+    padding: 28px 20px 60px;
+  }
+}
+
+/* ── Floating desktop CTA ────────────────────────────────────────────── */
+.desktop-cta-btn {
+  display: none;
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  z-index: 50;
+  background: #e06840;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 26px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  font-family: 'Georgia', serif;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+.desktop-cta-btn:hover { background: #c95930; transform: translateY(-1px); }
+@media (min-width: 768px) { .desktop-cta-btn { display: block; } }
+
+/* ── Cards ───────────────────────────────────────────────────────────── */
+.card {
+  background: #faf5e6;
+  border-radius: 18px;
+  padding: 24px 20px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+}
+
+/* ── Header card ─────────────────────────────────────────────────────── */
+.header-card {
+  text-align: center;
+  padding: 28px 24px 24px;
+}
+
+.header-card h1 {
+  font-size: clamp(1.9rem, 7vw, 2.4rem);
+  font-weight: bold;
+  color: #1e1208;
+  letter-spacing: -0.3px;
+}
+
+.crown-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.divider-line {
+  display: block;
+  width: 60px;
+  height: 2px;
+  background: #c9821a;
+  border-radius: 2px;
+}
+
+.crown-icon { font-size: 1.3rem; }
+
+.header-subtitle {
+  color: #4a3820;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* ── Share card ──────────────────────────────────────────────────────── */
+.share-card { text-align: center; }
+
+.share-count {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #c9821a;
+  margin-bottom: 12px;
+}
+
+.share-action-btn {
+  display: block;
+  width: 100%;
+  background: #1a1a1a;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 14px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: 'Georgia', serif;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: background 0.15s;
+}
+.share-action-btn:hover { background: #333; }
+
+.share-subtitle {
+  font-size: 0.8rem;
+  color: #888;
+  font-family: sans-serif;
+}
+
+/* ── Clocks card ─────────────────────────────────────────────────────── */
+.clocks-card { padding: 0; overflow: hidden; }
+
+.clocks-section {
+  padding: 20px 16px 16px;
+}
+
+.needs-work-section {
+  border-top: 1px solid #e8e2d4;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.progress-title  { color: #2d7a3a; }
+.needs-work-title{ color: #c0392b; }
+.section-icon    { font-size: 1rem; }
+
+/* ── Clock grids ─────────────────────────────────────────────────────── */
+.clocks-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+/* On desktop, progress stretches to 6 columns */
+@media (min-width: 768px) {
+  #progress-grid { grid-template-columns: repeat(6, 1fr); }
+}
+
+/* ── Clock card ──────────────────────────────────────────────────────── */
+.clock-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px 6px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: transform 0.12s, box-shadow 0.12s;
+  user-select: none;
+}
+.clock-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+.clock-card:active { transform: translateY(0); }
+
+/* ── SVG dial ────────────────────────────────────────────────────────── */
+.dial-wrapper {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+}
+.dial-wrapper svg {
+  width: 72px;
+  height: 72px;
+  transform: rotate(-90deg);
+  display: block;
+}
+/* Shrink dials in the 6-col progress grid on desktop */
+@media (min-width: 768px) {
+  #progress-grid .dial-wrapper,
+  #progress-grid .dial-wrapper svg { width: 56px; height: 56px; }
+}
+
+.dial-bg       { fill: none; stroke: #ececec; stroke-width: 6; }
+.dial-progress {
+  fill: none;
+  stroke-width: 6;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.5s ease, stroke 0.4s ease;
+}
+
+.dial-value {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-align: center;
+  pointer-events: none;
+}
+@media (min-width: 768px) {
+  #progress-grid .dial-value { font-size: 0.72rem; }
+}
+
+.clock-icon  { font-size: 1.2rem; line-height: 1; }
+.clock-label {
+  font-size: 0.68rem;
+  text-align: center;
+  color: #333;
+  line-height: 1.3;
+  font-family: sans-serif;
+}
+@media (min-width: 768px) {
+  #progress-grid .clock-icon  { font-size: 0.95rem; }
+  #progress-grid .clock-label { font-size: 0.58rem; }
+}
+
+/* ── Join blurb ──────────────────────────────────────────────────────── */
+.join-blurb {
+  padding: 18px 20px 22px;
+  border-top: 1px solid #e8e2d4;
+  text-align: center;
+}
+.join-blurb p {
+  font-size: 0.85rem;
+  color: #4a3820;
+  line-height: 1.65;
+  margin-bottom: 16px;
+  font-family: sans-serif;
+}
+.join-cause-btn {
+  display: block;
+  width: 100%;
+  background: #e06840;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 15px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: 'Georgia', serif;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+.join-cause-btn:hover { background: #c95930; transform: translateY(-1px); }
+
+/* ── Modal overlay ───────────────────────────────────────────────────── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #1a2338;
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px 16px;
+  overflow-y: auto;
+}
+.modal-overlay.open { display: flex; }
+
+/* ── Clock detail modal card ─────────────────────────────────────────── */
+.clock-modal-card {
+  background: #faf5e6;
+  border-radius: 20px;
+  padding: 32px 28px 28px;
+  max-width: 380px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #333;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+.modal-close-btn:hover { background: #e8e2d4; }
+
+.modal-dial-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+/* The modal dial is larger */
+.modal-dial-wrap .dial-wrapper,
+.modal-dial-wrap .dial-wrapper svg { width: 140px; height: 140px; }
+.modal-dial-wrap .dial-bg     { stroke-width: 9; }
+.modal-dial-wrap .dial-progress { stroke-width: 9; }
+.modal-dial-wrap .dial-value  { font-size: 1.8rem; }
+
+.modal-clock-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #1e1208;
+  margin-bottom: 10px;
+}
+
+.modal-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.modal-divider .divider-line { width: 50px; background: #2d7a3a; }
+.modal-clock-icon { font-size: 1.3rem; }
+
+.modal-description {
+  font-size: 0.9rem;
+  color: #4a3820;
+  line-height: 1.7;
+  margin-bottom: 18px;
+  font-family: sans-serif;
+}
+
+.modal-source-link {
+  color: #2678d4;
+  font-size: 0.9rem;
+  font-family: sans-serif;
+  text-decoration: none;
+}
+.modal-source-link:hover { text-decoration: underline; }
+
+.modal-source-caption {
+  text-align: center;
+  color: #ccc;
+  font-size: 0.78rem;
+  font-family: sans-serif;
+  line-height: 1.6;
+  max-width: 380px;
+  word-break: break-all;
+}
+
+/* ── Join modal card ─────────────────────────────────────────────────── */
+.join-modal-card {
+  background: #faf5e6;
+  border-radius: 20px;
+  padding: 32px 28px 28px;
+  max-width: 420px;
+  width: 100%;
+}
+
+.join-modal-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1e1208;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+/* Form inputs */
+.join-form { display: flex; flex-direction: column; gap: 0; }
+
+.form-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #c9821a;
+  padding: 10px 0;
+  font-size: 0.95rem;
+  font-family: sans-serif;
+  color: #333;
+  outline: none;
+  margin-bottom: 4px;
+}
+.form-input::placeholder { color: #aaa; }
+.form-input:focus { border-bottom-color: #e06840; }
+
+.checkbox-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 12px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-family: sans-serif;
+  color: #4a3820;
+  line-height: 1.4;
+}
+
+.form-checkbox {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #c9821a;
+  border-radius: 3px;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 1px;
+  position: relative;
+}
+.form-checkbox:checked {
+  background: #c9821a;
+}
+.form-checkbox:checked::after {
+  content: '✓';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+  width: 100%;
+}
+
+.form-rule {
+  border: none;
+  border-top: 1px solid #d8d0c0;
+  margin: 18px 0 16px;
+}
+
+.interest-label {
+  font-size: 0.95rem;
+  font-family: sans-serif;
+  color: #2a1f0e;
+  text-align: center;
+  margin-bottom: 14px;
+  line-height: 1.4;
+}
+
+.interest-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 22px;
+}
+
+/* Selectable interest clock cards */
+.interest-grid .clock-card {
+  border: 2px solid transparent;
+  transition: border-color 0.15s, transform 0.12s, box-shadow 0.12s;
+}
+.interest-grid .clock-card.selected {
+  border-color: #e06840;
+  background: #fff7f3;
+}
+
+.join-submit-btn {
+  display: block;
+  width: 100%;
+  background: #e06840;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 15px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: 'Georgia', serif;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+.join-submit-btn:hover { background: #c95930; transform: translateY(-1px); }
+
+/* ── Toast ───────────────────────────────────────────────────────────── */
+.toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(16px);
+  background: #1e1208;
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-family: sans-serif;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 999;
+  transition: opacity 0.2s, transform 0.2s;
+  white-space: nowrap;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
