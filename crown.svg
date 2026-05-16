@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 90">
+  <g fill="#d89b00">
+    <!-- Base -->
+    <rect x="28" y="58" width="64" height="10" rx="2"/>
+
+    <!-- Crown body -->
+    <path d="
+      M28 58
+      L36 28
+      L52 42
+      L60 18
+      L68 42
+      L84 28
+      L92 58
+      Z
+    "/>
+
+    <!-- Crown jewels/tips -->
+    <circle cx="36" cy="28" r="4"/>
+    <circle cx="60" cy="18" r="5"/>
+    <circle cx="84" cy="28" r="4"/>
+  </g>
+</svg>
