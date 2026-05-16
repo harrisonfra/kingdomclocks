@@ -37,18 +37,18 @@ const ICONS = {
 const progressData = [
   // ── Top 3 (kept) ──────────────────────────────────────────────────
   {
-    value: 72,
-    label: 'Book Of Mormon',
+    value: 100,
+    label: 'Christian Fellowship',
     iconSvg: ICONS.book,
-    description: "The Church lists 188 published languages, and the Book of Mormon has 115 official translations plus 21 selections. That means at least some Book of Mormon text exists in about 72.3% of Church-published languages.",
-    sourceUrl: 'https://newsroom.churchofjesuschrist.org/facts-and-statistics/state',
+    description: "100% of countries around the world now have Christian presence. Christians now live and gather in every nation on earth. In some places this is public and protected. In others, it is private, limited, or under pressure. This does not mean every person has easy access to a church, but it does show that the body of Christ has spread across every nation and region of the world. This is a major sign of progress.",
+    sourceUrl: 'https://operationworld.org/locations/world/',
   },
   {
-    value: 90,
-    label: 'Church Service',
-    iconSvg: ICONS.globe,
-    description: "The Church provides humanitarian relief and development aid in 175 of the world's 195 countries. That means Church-supported aid reaches about 90% of all nations, bringing food, clean water, emergency relief, medical support, education, and self-reliance resources to people across the world.",
-    sourceUrl: 'https://newsroom.churchofjesuschrist.org/facts-and-statistics/state',
+    value: 75,
+    label: 'Bible Access',
+    iconSvg: ICONS.book,
+    description: "75% of people worldwide now have access to the full Bible in a language they know and understand best. That means more than 6.1 billion people have the opportunity to read the complete scriptures in their heart language. This is a major sign of progress.",
+    sourceUrl: 'https://www.biblesociety.org.au/blog/the-bible-in-heart-languages-for-6-1-billion-people/?utm_source=chatgpt.com',
   },
   {
     value: 86,
@@ -95,11 +95,11 @@ const progressData = [
     sourceUrl: 'https://wycliffe.net/global-scripture-access/',
   },
   {
-    value: 10,
-    label: 'Organ Donation',
-    iconSvg: ICONS.heartPlus,
-    description: "Only 10% of global organ transplant need is being met. In the United States alone, more than 103,000 people are waiting for an organ transplant, with about 13 people dying every day before one becomes available. The need is clear: more work needs done here.",
-    sourceUrl: 'https://www.who.int/health-topics/transplantation',
+    value: 46,
+    label: 'Christian Support',
+    iconSvg: ICONS.cross,
+    description: "Only 46% of U.S. Christians say science does more good than harm. Among evangelicals, that number falls to 39%. At the same time, science shapes medicine, food, energy, communication, and nearly every tool we use to serve our neighbors. The need is clear: more work needs to be done here.",
+    sourceUrl: 'https://www.pewresearch.org/religion/2025/02/26/religion-and-views-of-science/?utm_source=chatgpt.com',
   },
 ];
 
@@ -276,15 +276,27 @@ const shareCard    = document.getElementById('share-modal-card');
 
 const SHARE_PLATFORMS = [
   { label: 'Facebook',   icon: ICONS.facebook,  color: '#1877F2', iconColor: '#fff',
-    action: (url) => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank') },
+    action: (url) => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, 'fb-share', 'width=580,height=520,resizable=yes') },
   { label: 'Instagram',  icon: ICONS.instagram, color: '#E1306C', iconColor: '#fff',
-    action: (url) => { navigator.clipboard.writeText(url); showToast('Link copied — paste on Instagram!'); } },
+    action: async (url) => {
+      if (navigator.share) {
+        try { await navigator.share({ title: 'Kingdom Clocks', text: 'What time is it in God\'s Kingdom?', url }); return; } catch (_) {}
+      }
+      await navigator.clipboard.writeText(url);
+      showToast('Link copied — paste on Instagram!');
+    }},
   { label: 'X',          icon: ICONS.xTwitter,  color: '#000',    iconColor: '#fff',
     action: (url) => window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent('What time is it in God\'s Kingdom? See Kingdom Clocks.')}`, '_blank') },
   { label: 'WhatsApp',   icon: ICONS.whatsapp,  color: '#25D366', iconColor: '#fff',
     action: (url) => window.open(`https://wa.me/?text=${encodeURIComponent('Check out Kingdom Clocks: ' + url)}`, '_blank') },
   { label: 'Messenger',  icon: ICONS.messenger, color: '#0084FF', iconColor: '#fff',
-    action: (url) => window.open(`https://www.facebook.com/dialog/send?link=${encodeURIComponent(url)}&app_id=291494419107&redirect_uri=${encodeURIComponent(url)}`, '_blank') },
+    action: (url) => {
+      navigator.clipboard?.writeText(url);
+      const a = document.createElement('a');
+      a.href = `fb-messenger://share/?link=${encodeURIComponent(url)}`;
+      a.click();
+      showToast('Opening Messenger… link also copied!');
+    }},
   { label: 'iMessage',   icon: ICONS.sms,       color: '#34C759', iconColor: '#fff',
     action: (url) => window.location.href = `sms:?&body=${encodeURIComponent('Check out Kingdom Clocks: ' + url)}` },
   { label: 'Email',      icon: ICONS.email,     color: '#c9821a', iconColor: '#fff',
@@ -312,10 +324,10 @@ const SHARE_PLATFORMS = [
 
     btn.appendChild(iconWrap);
     btn.appendChild(label);
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', async () => {
       runTransaction(shareCountRef, (current) => (current || 0) + 1);
-      platform.action(url);
       closeShareModal();
+      await platform.action(url);
     });
     grid.appendChild(btn);
   });
