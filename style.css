@@ -105,8 +105,8 @@ body {
   max-width: 90px;
   border-radius: 2px;
 }
-.divider-line--left  { background: linear-gradient(to right, transparent, #c9a227); }
-.divider-line--right { background: linear-gradient(to left,  transparent, #c9a227); }
+.divider-line--left  { background: linear-gradient(to right, transparent, #D89B00); }
+.divider-line--right { background: linear-gradient(to left,  transparent, #D89B00); }
 
 .crown-img {
   width: 42px;
@@ -129,7 +129,7 @@ body {
   font-family: 'Inter', sans-serif;
   font-size: 2rem;
   font-weight: 800;
-  color: #c9821a;
+  color: #D89B00;
   margin-bottom: 12px;
 }
 
