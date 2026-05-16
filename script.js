@@ -1,6 +1,11 @@
-// ── Config ────────────────────────────────────────────────────────────
-const SHARE_COUNT = 1582;
-const SHARE_GOAL  = 10000;
+// ── Firebase ──────────────────────────────────────────────────────────
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
+import { getDatabase, ref, onValue, runTransaction } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js';
+import { firebaseConfig } from './firebase-config.js';
+
+const firebaseApp = initializeApp(firebaseConfig);
+const db          = getDatabase(firebaseApp);
+const shareCountRef = ref(db, 'shareCount');
 
 // ── SVG icon library ──────────────────────────────────────────────────
 const ICONS = {
@@ -160,7 +165,10 @@ function createClockCard(data) {
 }
 
 // ── Render grids ───────────────────────────────────────────────────────
-document.getElementById('share-count').textContent = `${SHARE_COUNT.toLocaleString()} Shares`;
+onValue(shareCountRef, (snapshot) => {
+  const count = snapshot.val() || 0;
+  document.getElementById('share-count').textContent = `${count.toLocaleString()} Shares`;
+});
 
 progressDisplayData.forEach(d => document.getElementById('progress-grid').appendChild(createClockCard(d)));
 needsWorkData.forEach(d => document.getElementById('needs-work-grid').appendChild(createClockCard(d)));
@@ -255,6 +263,7 @@ document.querySelector('.join-submit-btn').addEventListener('click', () => { clo
 
 // ── Share button ───────────────────────────────────────────────────────
 document.getElementById('share-action-btn').addEventListener('click', async () => {
+  runTransaction(shareCountRef, (current) => (current || 0) + 1);
   const url = window.location.href;
   if (navigator.share) {
     try { await navigator.share({ title: 'Kingdom Clocks', url }); } catch (_) {}
