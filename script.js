@@ -108,19 +108,8 @@ const CIRCUMFERENCE = 2 * Math.PI * R;
 
 function getColor(pct) {
   const p = Math.max(0, Math.min(100, pct));
-  if (p >= 85) {
-    const t = (p - 85) / 15;
-    return `hsl(${Math.round(78 + t * 42)}, 60%, 37%)`;
-  } else if (p >= 65) {
-    const t = (p - 65) / 20;
-    return `hsl(${Math.round(44 + t * 34)}, 78%, 40%)`;
-  } else if (p >= 40) {
-    const t = (p - 40) / 25;
-    return `hsl(${Math.round(20 + t * 24)}, 83%, 43%)`;
-  } else {
-    const t = p / 40;
-    return `hsl(${Math.round(2 + t * 18)}, 76%, 41%)`;
-  }
+  const hue = Math.round(p * 1.2); // 0% → 0° red, 50% → 60° yellow, 100% → 120° green
+  return `hsl(${hue}, 72%, 42%)`;
 }
 
 function makeDial(pct, inverted = false, isPlaceholder = false) {
