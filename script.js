@@ -89,30 +89,16 @@ const progressData = [
   },
 ];
 
-const needsWorkData = [
-  {
-    value: 75,
-    label: 'Deaths from Age-Related Disease',
-    iconSvg: ICONS.activity,
-    inverted: true,
-    description: "75% of all deaths globally are from age-related diseases. Cardiovascular disease, cancer, and neurodegeneration account for the vast majority. Advances in longevity research could dramatically reduce this number.",
-    sourceUrl: 'https://ourworldindata.org/causes-of-death',
-  },
-  {
-    value: 10,
-    label: 'Global Organ Need Met',
-    iconSvg: ICONS.heartPlus,
-    description: "Only 10% of the global need for organ transplants is currently being met. Over 130,000 patients in the US alone are on transplant waiting lists, with 20 people dying each day while waiting.",
-    sourceUrl: 'https://www.who.int/transplantation/organ/en/',
-  },
-  {
-    value: 8,
-    label: 'NIA Budget to Aging Biology',
-    iconSvg: ICONS.microscope,
-    description: "Only 8% of the National Institute on Aging's budget is directed toward the fundamental biology of aging itself. Most funding goes to individual diseases rather than the underlying aging process.",
-    sourceUrl: 'https://www.nia.nih.gov/about/budget',
-  },
-];
+// Dynamically derived: the 3 lowest-percentage non-placeholder clocks, descending
+const needsWorkData = [...progressData]
+  .filter(d => !d.isPlaceholder)
+  .sort((a, b) => a.value - b.value)
+  .slice(0, 3)
+  .reverse();
+
+// Progress grid excludes any clock already shown in Needs Work
+const needsWorkSet = new Set(needsWorkData);
+const progressDisplayData = progressData.filter(d => !needsWorkSet.has(d));
 
 // ── Dial geometry ──────────────────────────────────────────────────────
 const R            = 30;
@@ -187,7 +173,7 @@ function createClockCard(data) {
 // ── Render grids ───────────────────────────────────────────────────────
 document.getElementById('share-count').textContent = `${SHARE_COUNT.toLocaleString()} Shares`;
 
-progressData.forEach(d  => document.getElementById('progress-grid').appendChild(createClockCard(d)));
+progressDisplayData.forEach(d => document.getElementById('progress-grid').appendChild(createClockCard(d)));
 needsWorkData.forEach(d => document.getElementById('needs-work-grid').appendChild(createClockCard(d)));
 
 // ── Clock detail modal ─────────────────────────────────────────────────
@@ -257,10 +243,10 @@ document.querySelector('.join-submit-btn').addEventListener('click', () => { clo
 (function buildInterestGrid() {
   const grid = document.getElementById('interest-grid');
   needsWorkData.forEach(d => {
-    const color = getColor(d.inverted ? (100 - d.value) : d.value);
+    const color = getColor(d.value);
     const card = document.createElement('div');
     card.className = 'clock-card';
-    card.appendChild(makeDial(d.value, d.inverted));
+    card.appendChild(makeDial(d.value));
 
     const iconEl = document.createElement('div');
     iconEl.className = 'clock-icon';
