@@ -1,15 +1,22 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* ── Page & background ───────────────────────────────────────────────── */
+/* ── Fonts ───────────────────────────────────────────────────────────── */
 body {
-  font-family: 'Georgia', serif;
+  font-family: 'Inter', sans-serif;
   min-height: 100vh;
-  background-color: #f5c45a;          /* warm amber fallback */
+  background-color: #f5c45a;
   background-image: url('bg.png');
   background-size: cover;
-  background-position: center top;
+  background-position: top center;
   background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-attachment: scroll;
+}
+
+@media (min-width: 768px) {
+  body {
+    background-image: url('largebg.png');
+    background-position: top center;
+  }
 }
 
 /* ── Layout ──────────────────────────────────────────────────────────── */
@@ -29,9 +36,7 @@ body {
   gap: 14px;
 }
 
-/* Desktop: pin content to left, let bg show on right */
 @media (min-width: 768px) {
-  .page-wrap { justify-content: flex-start; }
   .content-panel {
     margin: 0;
     max-width: 460px;
@@ -51,9 +56,9 @@ body {
   border: none;
   border-radius: 50px;
   padding: 12px 26px;
+  font-family: 'Inter', sans-serif;
   font-size: 0.95rem;
-  font-weight: bold;
-  font-family: 'Georgia', serif;
+  font-weight: 600;
   cursor: pointer;
   transition: background 0.15s, transform 0.1s;
 }
@@ -62,44 +67,56 @@ body {
 
 /* ── Cards ───────────────────────────────────────────────────────────── */
 .card {
-  background: #faf5e6;
+  background: rgba(250, 245, 230, 0.82);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
   border-radius: 18px;
   padding: 24px 20px;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+  box-shadow: 0 2px 20px rgba(0,0,0,0.12);
 }
 
 /* ── Header card ─────────────────────────────────────────────────────── */
 .header-card {
   text-align: center;
-  padding: 28px 24px 24px;
+  padding: 28px 24px 22px;
 }
 
 .header-card h1 {
-  font-size: clamp(1.9rem, 7vw, 2.4rem);
-  font-weight: bold;
+  font-family: 'Inika', serif;
+  font-size: clamp(2.4rem, 9vw, 3.2rem);
+  font-weight: 700;
   color: #1e1208;
   letter-spacing: -0.3px;
 }
 
+/* ── Crown divider ───────────────────────────────────────────────────── */
 .crown-divider {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  margin: 10px 0;
+  margin: 10px 0 12px;
 }
 
 .divider-line {
   display: block;
-  width: 60px;
+  flex: 1;
   height: 2px;
-  background: #c9821a;
+  max-width: 90px;
   border-radius: 2px;
 }
+.divider-line--left  { background: linear-gradient(to right, transparent, #c9a227); }
+.divider-line--right { background: linear-gradient(to left,  transparent, #c9a227); }
 
-.crown-icon { font-size: 1.3rem; }
+.crown-img {
+  width: 42px;
+  height: auto;
+  display: block;
+  flex-shrink: 0;
+}
 
 .header-subtitle {
+  font-family: 'Inter', sans-serif;
   color: #4a3820;
   font-size: 0.95rem;
   line-height: 1.6;
@@ -109,8 +126,9 @@ body {
 .share-card { text-align: center; }
 
 .share-count {
+  font-family: 'Inter', sans-serif;
   font-size: 2rem;
-  font-weight: bold;
+  font-weight: 800;
   color: #c9821a;
   margin-bottom: 12px;
 }
@@ -123,9 +141,9 @@ body {
   border: none;
   border-radius: 50px;
   padding: 14px 20px;
+  font-family: 'Inter', sans-serif;
   font-size: 1rem;
-  font-weight: bold;
-  font-family: 'Georgia', serif;
+  font-weight: 600;
   cursor: pointer;
   margin-bottom: 10px;
   transition: background 0.15s;
@@ -134,63 +152,54 @@ body {
 
 .share-subtitle {
   font-size: 0.8rem;
-  color: #888;
-  font-family: sans-serif;
+  color: #6b5a40;
 }
 
 /* ── Clocks card ─────────────────────────────────────────────────────── */
 .clocks-card { padding: 0; overflow: hidden; }
 
-.clocks-section {
-  padding: 20px 16px 16px;
-}
+.clocks-section { padding: 18px 14px 14px; }
 
-.needs-work-section {
-  border-top: 1px solid #e8e2d4;
-}
+.needs-work-section { border-top: 1px solid rgba(180,160,120,0.35); }
 
 .section-title {
   text-align: center;
-  font-size: 1.1rem;
-  font-weight: bold;
-  margin-bottom: 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
 }
-.progress-title  { color: #2d7a3a; }
-.needs-work-title{ color: #c0392b; }
-.section-icon    { font-size: 1rem; }
+.progress-title   { color: #2d7a3a; }
+.needs-work-title { color: #c0392b; }
 
-/* ── Clock grids ─────────────────────────────────────────────────────── */
+/* ── Clocks grid ─────────────────────────────────────────────────────── */
 .clocks-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
 }
 
-/* On desktop, progress stretches to 6 columns */
-@media (min-width: 768px) {
-  #progress-grid { grid-template-columns: repeat(6, 1fr); }
-}
-
 /* ── Clock card ──────────────────────────────────────────────────────── */
 .clock-card {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.78);
   border-radius: 12px;
-  padding: 12px 6px 10px;
+  padding: 10px 6px 9px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
   cursor: pointer;
-  transition: transform 0.12s, box-shadow 0.12s;
+  transition: transform 0.12s, box-shadow 0.12s, background 0.12s;
   user-select: none;
 }
 .clock-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.13);
+  background: rgba(255,255,255,0.92);
 }
 .clock-card:active { transform: translateY(0); }
 
@@ -207,13 +216,8 @@ body {
   transform: rotate(-90deg);
   display: block;
 }
-/* Shrink dials in the 6-col progress grid on desktop */
-@media (min-width: 768px) {
-  #progress-grid .dial-wrapper,
-  #progress-grid .dial-wrapper svg { width: 56px; height: 56px; }
-}
 
-.dial-bg       { fill: none; stroke: #ececec; stroke-width: 6; }
+.dial-bg       { fill: none; stroke: #e4ddd0; stroke-width: 6; }
 .dial-progress {
   fill: none;
   stroke-width: 6;
@@ -227,40 +231,47 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.9rem;
-  font-weight: bold;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
   text-align: center;
   pointer-events: none;
 }
-@media (min-width: 768px) {
-  #progress-grid .dial-value { font-size: 0.72rem; }
+
+/* ── Clock icon (SVG line art) ───────────────────────────────────────── */
+.clock-icon {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.clock-icon svg {
+  width: 100%;
+  height: 100%;
 }
 
-.clock-icon  { font-size: 1.2rem; line-height: 1; }
 .clock-label {
-  font-size: 0.68rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.67rem;
   text-align: center;
-  color: #333;
+  color: #3a2e1e;
   line-height: 1.3;
-  font-family: sans-serif;
-}
-@media (min-width: 768px) {
-  #progress-grid .clock-icon  { font-size: 0.95rem; }
-  #progress-grid .clock-label { font-size: 0.58rem; }
 }
 
 /* ── Join blurb ──────────────────────────────────────────────────────── */
 .join-blurb {
-  padding: 18px 20px 22px;
-  border-top: 1px solid #e8e2d4;
+  padding: 16px 18px 20px;
+  border-top: 1px solid rgba(180,160,120,0.35);
   text-align: center;
 }
 .join-blurb p {
+  font-family: 'Inter', sans-serif;
   font-size: 0.85rem;
   color: #4a3820;
   line-height: 1.65;
   margin-bottom: 16px;
-  font-family: sans-serif;
 }
 .join-cause-btn {
   display: block;
@@ -270,9 +281,9 @@ body {
   border: none;
   border-radius: 50px;
   padding: 15px 20px;
+  font-family: 'Inter', sans-serif;
   font-size: 1rem;
-  font-weight: bold;
-  font-family: 'Georgia', serif;
+  font-weight: 600;
   cursor: pointer;
   transition: background 0.15s, transform 0.1s;
 }
@@ -283,7 +294,7 @@ body {
   display: none;
   position: fixed;
   inset: 0;
-  background: #1a2338;
+  background: rgba(18, 24, 44, 0.94);
   z-index: 200;
   align-items: center;
   justify-content: center;
@@ -294,9 +305,26 @@ body {
 }
 .modal-overlay.open { display: flex; }
 
+/* ── Modal close button (outside the card) ───────────────────────────── */
+.modal-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 1.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: #1e1208;
+  line-height: 1;
+  padding: 4px;
+  z-index: 1;
+}
+.modal-close-btn:hover { opacity: 0.55; }
+
 /* ── Clock detail modal card ─────────────────────────────────────────── */
 .clock-modal-card {
-  background: #faf5e6;
+  background: rgba(250, 245, 230, 0.97);
   border-radius: 20px;
   padding: 32px 28px 28px;
   max-width: 380px;
@@ -305,37 +333,22 @@ body {
   position: relative;
 }
 
-.modal-close-btn {
-  position: absolute;
-  top: 14px;
-  right: 16px;
-  background: none;
-  border: none;
-  font-size: 1.2rem;
-  cursor: pointer;
-  color: #333;
-  line-height: 1;
-  padding: 4px 8px;
-  border-radius: 4px;
-}
-.modal-close-btn:hover { background: #e8e2d4; }
-
 .modal-dial-wrap {
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
 }
 
-/* The modal dial is larger */
 .modal-dial-wrap .dial-wrapper,
 .modal-dial-wrap .dial-wrapper svg { width: 140px; height: 140px; }
-.modal-dial-wrap .dial-bg     { stroke-width: 9; }
+.modal-dial-wrap .dial-bg       { stroke-width: 9; }
 .modal-dial-wrap .dial-progress { stroke-width: 9; }
-.modal-dial-wrap .dial-value  { font-size: 1.8rem; }
+.modal-dial-wrap .dial-value    { font-size: 1.75rem; }
 
 .modal-clock-title {
-  font-size: 1.4rem;
-  font-weight: bold;
+  font-family: 'Inika', serif;
+  font-size: 1.45rem;
+  font-weight: 700;
   color: #1e1208;
   margin-bottom: 10px;
 }
@@ -347,30 +360,38 @@ body {
   gap: 10px;
   margin-bottom: 16px;
 }
-.modal-divider .divider-line { width: 50px; background: #2d7a3a; }
-.modal-clock-icon { font-size: 1.3rem; }
+.modal-divider .divider-line { max-width: 50px; background: #2d7a3a; }
+
+.modal-clock-icon {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-clock-icon svg { width: 100%; height: 100%; }
 
 .modal-description {
-  font-size: 0.9rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
   color: #4a3820;
-  line-height: 1.7;
-  margin-bottom: 18px;
-  font-family: sans-serif;
+  line-height: 1.72;
+  margin-bottom: 20px;
 }
 
 .modal-source-link {
+  font-family: 'Inter', sans-serif;
   color: #2678d4;
-  font-size: 0.9rem;
-  font-family: sans-serif;
+  font-size: 0.92rem;
   text-decoration: none;
 }
 .modal-source-link:hover { text-decoration: underline; }
 
 .modal-source-caption {
   text-align: center;
-  color: #ccc;
+  color: #b0b8c8;
+  font-family: 'Inter', sans-serif;
   font-size: 0.78rem;
-  font-family: sans-serif;
   line-height: 1.6;
   max-width: 380px;
   word-break: break-all;
@@ -378,7 +399,7 @@ body {
 
 /* ── Join modal card ─────────────────────────────────────────────────── */
 .join-modal-card {
-  background: #faf5e6;
+  background: rgba(250, 245, 230, 0.97);
   border-radius: 20px;
   padding: 32px 28px 28px;
   max-width: 420px;
@@ -386,14 +407,14 @@ body {
 }
 
 .join-modal-title {
+  font-family: 'Inika', serif;
   font-size: 1.5rem;
-  font-weight: bold;
+  font-weight: 700;
   color: #1e1208;
   text-align: center;
   margin-bottom: 24px;
 }
 
-/* Form inputs */
 .join-form { display: flex; flex-direction: column; gap: 0; }
 
 .form-input {
@@ -402,8 +423,8 @@ body {
   border: none;
   border-bottom: 2px solid #c9821a;
   padding: 10px 0;
+  font-family: 'Inter', sans-serif;
   font-size: 0.95rem;
-  font-family: sans-serif;
   color: #333;
   outline: none;
   margin-bottom: 4px;
@@ -417,8 +438,8 @@ body {
   gap: 10px;
   margin-top: 12px;
   cursor: pointer;
+  font-family: 'Inter', sans-serif;
   font-size: 0.85rem;
-  font-family: sans-serif;
   color: #4a3820;
   line-height: 1.4;
 }
@@ -436,9 +457,7 @@ body {
   margin-top: 1px;
   position: relative;
 }
-.form-checkbox:checked {
-  background: #c9821a;
-}
+.form-checkbox:checked { background: #c9821a; }
 .form-checkbox:checked::after {
   content: '✓';
   position: absolute;
@@ -460,8 +479,8 @@ body {
 }
 
 .interest-label {
+  font-family: 'Inter', sans-serif;
   font-size: 0.95rem;
-  font-family: sans-serif;
   color: #2a1f0e;
   text-align: center;
   margin-bottom: 14px;
@@ -475,14 +494,13 @@ body {
   margin-bottom: 22px;
 }
 
-/* Selectable interest clock cards */
 .interest-grid .clock-card {
   border: 2px solid transparent;
   transition: border-color 0.15s, transform 0.12s, box-shadow 0.12s;
 }
 .interest-grid .clock-card.selected {
   border-color: #e06840;
-  background: #fff7f3;
+  background: rgba(255,240,230,0.92);
 }
 
 .join-submit-btn {
@@ -493,9 +511,9 @@ body {
   border: none;
   border-radius: 50px;
   padding: 15px 20px;
+  font-family: 'Inter', sans-serif;
   font-size: 1rem;
-  font-weight: bold;
-  font-family: 'Georgia', serif;
+  font-weight: 600;
   cursor: pointer;
   transition: background 0.15s, transform 0.1s;
 }
@@ -511,8 +529,8 @@ body {
   color: #fff;
   padding: 10px 24px;
   border-radius: 50px;
+  font-family: 'Inter', sans-serif;
   font-size: 0.85rem;
-  font-family: sans-serif;
   opacity: 0;
   pointer-events: none;
   z-index: 999;

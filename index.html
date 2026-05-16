@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kingdom Clocks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inika:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -18,9 +21,9 @@
       <div class="card header-card">
         <h1>Kingdom Clocks</h1>
         <div class="crown-divider">
-          <span class="divider-line"></span>
-          <span class="crown-icon">&#x1F451;</span>
-          <span class="divider-line"></span>
+          <span class="divider-line divider-line--left"></span>
+          <img src="crown.svg" alt="Crown" class="crown-img">
+          <span class="divider-line divider-line--right"></span>
         </div>
         <p class="header-subtitle">What time is it in God's Kingdom?<br>See the clocks, then help move them.</p>
       </div>
@@ -50,7 +53,7 @@
         </section>
 
         <div class="join-blurb">
-          <p>Join Kingdom Clocks today for free to receive inspirational updates on where Christians have driven god's kingdom ahead and hear about opportunities to help move the lowest clocks up.</p>
+          <p>Join Kingdom Clocks today for free to receive inspirational updates on where Christians have driven God's kingdom ahead and hear about opportunities to help build His kingdom here on earth today.</p>
           <button class="join-cause-btn" id="join-btn">Join The Cause</button>
         </div>
 
@@ -61,8 +64,8 @@
 
   <!-- ── Clock Detail Modal ────────────────────────── -->
   <div class="modal-overlay" id="clock-modal-overlay" aria-hidden="true">
+    <button class="modal-close-btn" id="clock-modal-close" aria-label="Close">&#x2715;</button>
     <div class="modal-card clock-modal-card" id="clock-modal-card" role="dialog">
-      <button class="modal-close-btn" id="clock-modal-close" aria-label="Close">&#x2715;</button>
       <div class="modal-dial-wrap" id="modal-dial-wrap"></div>
       <h2 class="modal-clock-title" id="modal-clock-title"></h2>
       <div class="modal-divider">
