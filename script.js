@@ -274,21 +274,23 @@ document.querySelector('.join-submit-btn').addEventListener('click', () => { clo
 const shareOverlay = document.getElementById('share-modal-overlay');
 const shareCard    = document.getElementById('share-modal-card');
 
+const SHARE_TEXT = "What time is it in God's kingdom";
+
 const SHARE_PLATFORMS = [
   { label: 'Facebook',   icon: ICONS.facebook,  color: '#1877F2', iconColor: '#fff',
-    action: (url) => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, 'fb-share', 'width=580,height=520,resizable=yes') },
+    action: (url) => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank') },
   { label: 'Instagram',  icon: ICONS.instagram, color: '#E1306C', iconColor: '#fff',
     action: async (url) => {
       if (navigator.share) {
-        try { await navigator.share({ title: 'Kingdom Clocks', text: 'What time is it in God\'s Kingdom?', url }); return; } catch (_) {}
+        try { await navigator.share({ title: 'Kingdom Clocks', text: SHARE_TEXT, url }); return; } catch (_) {}
       }
       await navigator.clipboard.writeText(url);
       showToast('Link copied — paste on Instagram!');
     }},
   { label: 'X',          icon: ICONS.xTwitter,  color: '#000',    iconColor: '#fff',
-    action: (url) => window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent('What time is it in God\'s Kingdom? See Kingdom Clocks.')}`, '_blank') },
+    action: (url) => window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(SHARE_TEXT)}`, '_blank') },
   { label: 'WhatsApp',   icon: ICONS.whatsapp,  color: '#25D366', iconColor: '#fff',
-    action: (url) => window.open(`https://wa.me/?text=${encodeURIComponent('Check out Kingdom Clocks: ' + url)}`, '_blank') },
+    action: (url) => window.open(`https://wa.me/?text=${encodeURIComponent(SHARE_TEXT + ' ' + url)}`, '_blank') },
   { label: 'Messenger',  icon: ICONS.messenger, color: '#0084FF', iconColor: '#fff',
     action: (url) => {
       navigator.clipboard?.writeText(url);
@@ -298,9 +300,9 @@ const SHARE_PLATFORMS = [
       showToast('Opening Messenger… link also copied!');
     }},
   { label: 'iMessage',   icon: ICONS.sms,       color: '#34C759', iconColor: '#fff',
-    action: (url) => window.location.href = `sms:?&body=${encodeURIComponent('Check out Kingdom Clocks: ' + url)}` },
+    action: (url) => window.location.href = `sms:?&body=${encodeURIComponent(SHARE_TEXT + ' ' + url)}` },
   { label: 'Email',      icon: ICONS.email,     color: '#c9821a', iconColor: '#fff',
-    action: (url) => window.location.href = `mailto:?subject=${encodeURIComponent('Kingdom Clocks')}&body=${encodeURIComponent('Check out Kingdom Clocks: ' + url)}` },
+    action: (url) => window.location.href = `mailto:?subject=${encodeURIComponent('Kingdom Clocks')}&body=${encodeURIComponent(SHARE_TEXT + ' ' + url)}` },
   { label: 'Copy Link',  icon: ICONS.copy,      color: '#4a3820', iconColor: '#fff',
     action: (url) => { navigator.clipboard.writeText(url); showToast('Link copied to clipboard!'); } },
 ];
