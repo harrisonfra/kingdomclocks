@@ -95,7 +95,7 @@ const progressData = [
     sourceUrl: 'https://wycliffe.net/global-scripture-access/',
   },
   {
-    value: 46,
+    value: 39,
     label: 'Christian Support',
     iconSvg: ICONS.cross,
     description: "Only 46% of U.S. Christians say science does more good than harm. Among evangelicals, that number falls to 39%. At the same time, science shapes medicine, food, energy, communication, and nearly every tool we use to serve our neighbors. The need is clear: more work needs to be done here.",
