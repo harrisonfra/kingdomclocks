@@ -171,7 +171,7 @@ body {
 .share-action-btn {
   display: block;
   width: 100%;
-  background: #1a1a1a;
+  background: #362f1e;
   color: #fff;
   border: none;
   border-radius: 50px;
@@ -183,7 +183,7 @@ body {
   margin-bottom: 10px;
   transition: background 0.15s;
 }
-.share-action-btn:hover { background: #333; }
+.share-action-btn:hover { background: #4a4030; }
 
 .share-subtitle {
   font-size: 0.8rem;
@@ -752,9 +752,15 @@ body {
     font-size: 0.72rem;
   }
 
-  /* Clocks card sections */
+  /* Clocks card sections — each grows to fill clocks-card vertically,
+     with title + grid centered in the available space so the layout
+     doesn't leave a gap at the bottom. */
   .clocks-section {
     padding: 10px 14px 8px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   .section-title {
     font-size: 0.95rem;
@@ -766,8 +772,12 @@ body {
     grid-template-columns: repeat(6, 1fr);
     gap: 6px;
   }
+  /* Needs work uses 3 columns sized to match a single progress column
+     (1/6 of width minus shared gap), then the whole track is centered. */
   .needs-work-grid {
-    gap: 8px;
+    grid-template-columns: repeat(3, calc((100% - 30px) / 6));
+    gap: 6px;
+    justify-content: center;
   }
 
   /* Section titles with gradient lines spanning the card */
