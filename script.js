@@ -135,11 +135,13 @@ function makeDial(pct, inverted = false, isPlaceholder = false) {
     ? CIRCUMFERENCE
     : CIRCUMFERENCE * (1 - Math.max(0, Math.min(100, pct)) / 100);
 
-  // Clock hands: minute sweeps 0→360° over 0→100%, hour moves 1/12 as fast.
+  // Clock hands: minute sweeps 0→360° over 0→100%.
+  // Hour hand is fixed at 11 o'clock — Parable of the Workers in the Vineyard
+  // (Matthew 20:1-16): even at the eleventh hour, the call still goes out.
   // Hands SVG is NOT rotated, so (CX, CY-len) = 12 o'clock on page.
   const p         = isPlaceholder ? 0 : Math.max(0, Math.min(100, pct));
   const minAngle  = (p * 3.6).toFixed(1);
-  const hrAngle   = (p * 0.3).toFixed(1);
+  const hrAngle   = -30; // 11 o'clock (12 = 0°, each hour = 30°)
 
   const wrapper = document.createElement('div');
   wrapper.className = 'dial-wrapper';
