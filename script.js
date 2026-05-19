@@ -136,12 +136,13 @@ function makeDial(pct, inverted = false, isPlaceholder = false) {
     : CIRCUMFERENCE * (1 - Math.max(0, Math.min(100, pct)) / 100);
 
   // Clock hands: minute sweeps 0→360° over 0→100%.
-  // Hour hand is fixed at 11 o'clock — Parable of the Workers in the Vineyard
-  // (Matthew 20:1-16): even at the eleventh hour, the call still goes out.
+  // Hour hand travels through the eleventh hour as % rises — Parable of the
+  // Workers in the Vineyard (Matthew 20:1-16): 0% = 11 o'clock sharp,
+  // 100% = 12 o'clock, the eleventh hour ticking toward the close.
   // Hands SVG is NOT rotated, so (CX, CY-len) = 12 o'clock on page.
   const p         = isPlaceholder ? 0 : Math.max(0, Math.min(100, pct));
   const minAngle  = (p * 3.6).toFixed(1);
-  const hrAngle   = -30; // 11 o'clock (12 = 0°, each hour = 30°)
+  const hrAngle   = (-30 + p * 0.3).toFixed(1); // -30° at 0%, 0° at 100%
 
   const wrapper = document.createElement('div');
   wrapper.className = 'dial-wrapper';
@@ -157,12 +158,11 @@ function makeDial(pct, inverted = false, isPlaceholder = false) {
     ${!isPlaceholder ? `
     <svg class="dial-hands" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
       <line class="dial-hand--hour"
-            x1="${CX}" y1="${CY + 4}" x2="${CX}" y2="${CY - 17}"
+            x1="${CX}" y1="${CY - 8}" x2="${CX}" y2="${CY - 19}"
             transform="rotate(${hrAngle}, ${CX}, ${CY})"/>
       <line class="dial-hand--minute"
-            x1="${CX}" y1="${CY + 4}" x2="${CX}" y2="${CY - 23}"
+            x1="${CX}" y1="${CY - 8}" x2="${CX}" y2="${CY - 23}"
             transform="rotate(${minAngle}, ${CX}, ${CY})"/>
-      <circle class="dial-center-dot" cx="${CX}" cy="${CY}" r="2.5"/>
     </svg>` : ''}
     <div class="dial-value" style="color:${color}">${isPlaceholder ? '?' : pct + '%'}</div>
   `;
