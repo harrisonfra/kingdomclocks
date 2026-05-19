@@ -77,13 +77,7 @@ body {
   z-index: 1;
 }
 
-@media (min-width: 768px) {
-  .content-panel {
-    margin: 0;
-    max-width: 460px;
-    padding: 28px 20px 60px;
-  }
-}
+/* Desktop overrides moved to bottom of file so they win the cascade */
 
 /* ── Floating desktop CTA ────────────────────────────────────────────── */
 .desktop-cta-btn {
@@ -287,8 +281,8 @@ body {
   align-items: center;
   justify-content: center;
   font-family: 'Inter', sans-serif;
-  font-size: 0.88rem;
-  font-weight: 700;
+  font-size: 1rem;
+  font-weight: 800;
   text-align: center;
   pointer-events: none;
   z-index: 2;
@@ -684,4 +678,145 @@ body {
 .toast.show {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
+}
+
+
+/* ──────────────────────────────────────────────────────────────────────
+   Desktop layout overrides (must come last — wins the cascade)
+   ────────────────────────────────────────────────────────────────────── */
+@media (min-width: 768px) {
+  /* Flush-left column, locked to viewport height, no scroll */
+  .page-wrap {
+    height: 100vh;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .content-panel {
+    margin: 0;
+    max-width: 720px;
+    padding: 14px 16px;
+    gap: 12px;
+    height: 100vh;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  /* Clocks card flexes to fill remaining space */
+  .clocks-card {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Compact header card */
+  .header-card {
+    padding: 12px 22px 10px;
+  }
+  .header-card h1 {
+    font-size: 1.75rem;
+  }
+  .crown-divider {
+    margin: 4px 0 4px;
+  }
+  .crown-img {
+    width: 32px;
+  }
+  .header-subtitle {
+    font-size: 0.82rem;
+    line-height: 1.4;
+  }
+
+  /* Compact share card */
+  .share-card {
+    padding: 12px 20px 10px;
+  }
+  .share-count {
+    font-size: 1.35rem;
+    margin-bottom: 6px;
+  }
+  .share-action-btn {
+    padding: 10px 18px;
+    margin-bottom: 4px;
+    font-size: 0.92rem;
+  }
+  .share-subtitle {
+    font-size: 0.72rem;
+  }
+
+  /* Clocks card sections */
+  .clocks-section {
+    padding: 10px 14px 8px;
+  }
+  .section-title {
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+  }
+
+  /* All 6 progress clocks in one row */
+  #progress-grid {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 6px;
+  }
+  .needs-work-grid {
+    gap: 8px;
+  }
+
+  /* Section titles with gradient lines spanning the card */
+  .clocks-card .section-title {
+    margin: 0 -14px 8px;
+    padding: 0;
+  }
+  .clocks-card .progress-title::before,
+  .clocks-card .progress-title::after,
+  .clocks-card .needs-work-title::before,
+  .clocks-card .needs-work-title::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    border-radius: 2px;
+    min-width: 0;
+  }
+  .clocks-card .progress-title::before   { background: linear-gradient(to right, transparent, #2d7a3a); }
+  .clocks-card .progress-title::after    { background: linear-gradient(to left,  transparent, #2d7a3a); }
+  .clocks-card .needs-work-title::before { background: linear-gradient(to right, transparent, #c0392b); }
+  .clocks-card .needs-work-title::after  { background: linear-gradient(to left,  transparent, #c0392b); }
+
+  /* Tight clock cards */
+  .clocks-card .dial-wrapper,
+  .clocks-card .dial-wrapper .dial-arc {
+    width: 58px;
+    height: 58px;
+  }
+  .clocks-card .dial-value {
+    font-size: 0.8rem;
+  }
+  .clocks-card .clock-card {
+    padding: 5px 3px 6px;
+    gap: 2px;
+  }
+  .clocks-card .clock-label {
+    font-size: 0.56rem;
+    min-height: calc(0.56rem * 1.3 * 2);
+  }
+  .clocks-card .clock-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Tight join blurb */
+  .join-blurb {
+    padding: 10px 18px 12px;
+  }
+  .join-blurb p {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+  .join-cause-btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
 }
