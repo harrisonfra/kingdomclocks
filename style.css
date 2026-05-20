@@ -870,7 +870,23 @@ body {
 @media (min-width: 3000px),
        (min-resolution: 192dpi) and (min-width: 1500px),
        (-webkit-min-device-pixel-ratio: 2) and (min-width: 1500px) {
+  /* The 6-wide progress row no longer needs the full width — narrow the
+     panel and put the saved space into the right-hand background, the way
+     the panel is narrowed on mobile. Sized to hold the widest row
+     (3 needs-work cards ≈ 405px). Stays flush-left. */
+  .content-panel {
+    max-width: 470px;
+  }
+
+  /* Progress: 2 rows of 3, cards keep their regular-desktop width (105px) */
   #progress-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 105px);
+    justify-content: center;
+  }
+
+  /* Needs work keeps its 25%-larger width (fixed so the narrower panel
+     doesn't shrink it) */
+  .needs-work-grid {
+    grid-template-columns: repeat(3, 131px);
   }
 }
