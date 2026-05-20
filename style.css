@@ -861,9 +861,15 @@ body {
 }
 
 /* ──────────────────────────────────────────────────────────────────────
-   Very wide screens (3000px+): stack progress into 2 rows of 3
+   Very wide screens (~3000+ physical px): stack progress into 2 rows of 3.
+   Media queries use CSS pixels, so a Retina (2x) display reports
+   physical / DPR — e.g. a 3456px MacBook Pro is only 1728 CSS px.
+   Match either a true 3000 CSS-px display, or a high-DPI display that is
+   at least 1500 CSS px wide (≈3000 physical px at 2x).
    ────────────────────────────────────────────────────────────────────── */
-@media (min-width: 3000px) {
+@media (min-width: 3000px),
+       (min-resolution: 192dpi) and (min-width: 1500px),
+       (-webkit-min-device-pixel-ratio: 2) and (min-width: 1500px) {
   #progress-grid {
     grid-template-columns: repeat(3, 1fr);
   }
