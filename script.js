@@ -389,21 +389,3 @@ function showToast(msg) {
   clearTimeout(t._timer);
   t._timer = setTimeout(() => t.classList.remove('show'), 2500);
 }
-
-// ── TEMP: number each cloud so they can be referenced (remove later) ─────
-document.querySelectorAll('.cloud').forEach((svg) => {
-  const cls = [...svg.classList].find((c) => /^cloud--\d+$/.test(c));
-  if (!cls) return;
-  const num = cls.slice('cloud--'.length);
-  const [, , w, h] = svg.getAttribute('viewBox').split(/\s+/).map(Number);
-  const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-  t.setAttribute('x', w / 2);
-  t.setAttribute('y', h / 2);
-  t.setAttribute('text-anchor', 'middle');
-  t.setAttribute('dominant-baseline', 'central');
-  t.setAttribute('font-size', h * 0.5);
-  t.setAttribute('font-weight', '800');
-  t.setAttribute('fill', '#1e1208');
-  t.textContent = num;
-  svg.appendChild(t);
-});
