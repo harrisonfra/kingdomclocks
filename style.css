@@ -15,14 +15,43 @@ body {
 @media (min-width: 768px) {
   body {
     background-image: url('largebg.png');
-    background-position: top center;
+    /* Desktop is locked to 100vh; on short/wide monitors `cover` crops
+       vertically. Anchor to the bottom so the disciples stay in frame and
+       the sky is cropped instead. */
+    background-position: bottom center;
   }
 }
 
 /* ── Cloud animation ─────────────────────────────────────────────────── */
+/* Mobile / default: drift left → right across the full width. */
 @keyframes cloudDrift {
-  from { transform: translateX(calc(100vw + 420px)); }
-  to   { transform: translateX(-420px); }
+  from { transform: translateX(-420px); }
+  to   { transform: translateX(calc(100vw + 420px)); }
+}
+
+/* Desktop: drift left → right, slow down + gently fade out around 45%
+   across the page, then wrap (invisibly) back to the left and repeat. */
+@keyframes cloudDriftDesktop {
+  0%   { transform: translateX(-420px); opacity: 0.75; }
+  68%  { transform: translateX(40vw);   opacity: 0.75; }
+  86%  { transform: translateX(45vw);   opacity: 0;    }
+  100% { transform: translateX(-420px); opacity: 0;    }
+}
+
+/* Like cloudDriftDesktop, but travels a bit further (~54vw) before fading. */
+@keyframes cloudDriftDesktopFar {
+  0%   { transform: translateX(-420px); opacity: 0.75; }
+  72%  { transform: translateX(48vw);   opacity: 0.75; }
+  88%  { transform: translateX(54vw);   opacity: 0;    }
+  100% { transform: translateX(-420px); opacity: 0;    }
+}
+
+/* Like cloudDriftDesktop, but stops/fades sooner (~30vw). */
+@keyframes cloudDriftDesktopNear {
+  0%   { transform: translateX(-420px); opacity: 0.75; }
+  60%  { transform: translateX(25vw);   opacity: 0.75; }
+  80%  { transform: translateX(30vw);   opacity: 0;    }
+  100% { transform: translateX(-420px); opacity: 0;    }
 }
 
 .cloud-layer {
@@ -40,6 +69,21 @@ body {
   position: absolute;
   opacity: 0.75;
   animation: cloudDrift linear infinite;
+}
+
+@media (min-width: 768px) {
+  .cloud { animation-name: cloudDriftDesktop; }
+  /* Scroll the full width with no fade */
+  .cloud--1,
+  .cloud--4,
+  .cloud--7,
+  .cloud--8,
+  .cloud--9 { animation-name: cloudDrift; }
+  /* Travel a bit further before fading */
+  .cloud--10 { animation-name: cloudDriftDesktopFar; }
+  /* Stop / fade sooner */
+  .cloud--3,
+  .cloud--6 { animation-name: cloudDriftDesktopNear; }
 }
 
 .cloud-a { width: 420px; }
